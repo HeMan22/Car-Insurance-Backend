@@ -1,26 +1,14 @@
-package com.capstone.carInsurance.model;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package com.capstone.carInsurance.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
-public class Driver {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="DRIVER_ID")
+public class DriverDTO {
+
 	private Long driverID;
 	private String prefix;
 	private String firstName;
@@ -35,5 +23,4 @@ public class Driver {
 	private String additionalDriver;
 	private boolean commercialUse;
 	private boolean outsideState;
-
 }
