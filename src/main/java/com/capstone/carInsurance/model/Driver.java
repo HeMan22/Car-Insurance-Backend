@@ -22,6 +22,7 @@ public class Driver {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="DRIVER_ID")
 	private Long driverID;
+	
 	private String prefix;
 	private String firstName;
 	private String lastName;
@@ -30,10 +31,12 @@ public class Driver {
 	private String addressLine2;
 	private String city;
 	private String postCode;
+	
+	private String vehicleType;
 	private String engineSize;
 	private Long currentValue;
 	private int additionalDriver;
-	private boolean commercialUse;
-	private boolean outsideState;
+	private String commercialUse;
+	private String outsideState;
 
 }
