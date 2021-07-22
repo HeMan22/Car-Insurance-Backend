@@ -3,6 +3,14 @@ package com.capstone.carInsurance.utility;
 import java.util.HashMap;
 
 public class VehicleFactor {
+	
+	
+	double typeFactor;
+	double engineFactor;
+	double vehicleAdditionalDriverFactor;
+	double commercialUseFactor;
+	double outsideStateUseFactor;
+	double vehicleValueFactor;
 
 	// Setting Factor for Vehicle type Case
 	public double getVehicleTypeFactor(String vehicleType) {
@@ -15,8 +23,9 @@ public class VehicleFactor {
 		vehicleTypeFactor.put("Hatchback", 1.6);
 		vehicleTypeFactor.put("Other", 1.7);
 
+		typeFactor = vehicleTypeFactor.get(vehicleType);
 		System.out.println("Factor Class " + vehicleType + " : " + vehicleTypeFactor.get(vehicleType));
-		return vehicleTypeFactor.get(vehicleType);
+		return typeFactor;
 	}
 
 	// Setting Factor for Engine Size Case
@@ -31,13 +40,14 @@ public class VehicleFactor {
 		engineSizeFactor.put("3000", 3.0);
 		engineSizeFactor.put("Other", 3.5);
 
-		return engineSizeFactor.get(engineSize);
+		engineFactor = engineSizeFactor.get(engineSize);
+		return engineFactor;
 	}
 
 	// Setting Factor for Vehicle Value Case
 	public double getVehicleValueFactor(Long vehicleValue) {
 
-		double vehicleValueFactor = (vehicleValue <= 5000) ? 1.0 : 1.2;
+		vehicleValueFactor = (vehicleValue <= 5000) ? 1.0 : 1.2;
 
 		return vehicleValueFactor;
 	}
@@ -45,7 +55,7 @@ public class VehicleFactor {
 	// Setting Factor for Additional Driver Case
 	public double getVehicleAdditionalDriverFactor(int additionalDriver) {
 
-		double vehicleAdditionalDriverFactor = (additionalDriver <= 2) ? 1.1 : 1.2;
+		vehicleAdditionalDriverFactor = (additionalDriver <= 2) ? 1.1 : 1.2;
 
 		return vehicleAdditionalDriverFactor;
 	}
@@ -53,7 +63,7 @@ public class VehicleFactor {
 	// Setting Factor for Commercial Use Case
 	public double getVehicleCommericalUseFactor(String commercialUse) {
 
-		double commercialUseFactor = (commercialUse.equals("Yes") ? 1.1 : 1.0);
+		commercialUseFactor = (commercialUse.equals("Yes") ? 1.1 : 1.0);
 
 		return commercialUseFactor;
 	}
@@ -61,9 +71,16 @@ public class VehicleFactor {
 	// Setting Factor for Outside State Use Case
 	public double getVehicleOutsideStateUseFactor(String outsideStateUse) {
 
-		double outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
+		outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
 		
 		return outsideStateUseFactor;
+	}
+	
+	public double getVehicleInsuranceQuotation() {
+		
+		double vehicleInsuranceQuotation = 100 * typeFactor*engineFactor*vehicleAdditionalDriverFactor*commercialUseFactor*outsideStateUseFactor*vehicleValueFactor;
+		
+		return vehicleInsuranceQuotation;
 	}
 	
 }
