@@ -32,7 +32,7 @@ public class Driver {
 	private String postCode;
 	private String engineSize;
 	private Long currentValue;
-	private String additionalDriver;
+	private int additionalDriver;
 	private boolean commercialUse;
 	private boolean outsideState;
 
