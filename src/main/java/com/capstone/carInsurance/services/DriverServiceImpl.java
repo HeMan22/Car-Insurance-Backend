@@ -1,9 +1,12 @@
 package com.capstone.carInsurance.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capstone.carInsurance.exceptions.DriverNotFoundException;
 import com.capstone.carInsurance.model.Driver;
 import com.capstone.carInsurance.repository.DriverRepository;
 import com.capstone.carInsurance.utility.VehicleFactor;
@@ -29,9 +32,15 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public Driver getDriver(Long driverId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Driver getDriver(Long driverId) throws DriverNotFoundException{
+
+		Optional<Driver> driverInfo = driverRepository.findById(driverId);
+		
+		if(!driverInfo.isPresent()) {
+			throw new DriverNotFoundException("No Driver with Driver ID: "+ driverId+" can be found in the system.");
+		}
+		
+		return driverInfo.get();
 	}
 
 	@Override

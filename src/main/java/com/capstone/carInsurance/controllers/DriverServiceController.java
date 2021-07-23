@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.carInsurance.dto.DriverDTO;
+import com.capstone.carInsurance.exceptions.DriverNotFoundException;
 import com.capstone.carInsurance.model.Driver;
 import com.capstone.carInsurance.services.DriverService;
 import com.capstone.carInsurance.utility.APIResponse;
@@ -39,10 +41,24 @@ public class DriverServiceController {
 		
 		//Calling DriverServices to save the Driver Info
 		Driver saveDriverInfo = driverService.saveDriver(newDriverObj);
-		
+				
 		// Setting API Response		
 		APIResponse saveDriverResponse = new APIResponse("SUCCESS", "Driver Saved",saveDriverInfo);
 		
 		return new ResponseEntity<APIResponse>(saveDriverResponse, HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/get/driver/{id}")
+	public ResponseEntity<APIResponse> getDriverByDriverID(@PathVariable Long id) throws DriverNotFoundException{
+		
+		//
+		Driver getDriverObj = driverService.getDriver(id);
+		
+		APIResponse getDriverResponse = new APIResponse("SUCCESS", "Driver Fetched", getDriverObj);
+		
+		return new ResponseEntity<APIResponse>(getDriverResponse, HttpStatus.FOUND);
+		
+	}
+	
+	
 }
