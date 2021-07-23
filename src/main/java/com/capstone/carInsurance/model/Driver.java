@@ -27,6 +27,8 @@ public class Driver {
 	private String firstName;
 	private String lastName;
 	private String contactNo;
+	private String email;
+	
 	private String addressLine1;
 	private String addressLine2;
 	private String city;

@@ -2,9 +2,11 @@ package com.capstone.carInsurance.utility;
 
 import java.util.HashMap;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class VehicleFactor {
-	
-	
+
 	double typeFactor;
 	double engineFactor;
 	double vehicleAdditionalDriverFactor;
@@ -72,15 +74,16 @@ public class VehicleFactor {
 	public double getVehicleOutsideStateUseFactor(String outsideStateUse) {
 
 		outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
-		
+
 		return outsideStateUseFactor;
 	}
-	
+
 	public double getVehicleInsuranceQuotation() {
-		
-		double vehicleInsuranceQuotation = 100 * typeFactor*engineFactor*vehicleAdditionalDriverFactor*commercialUseFactor*outsideStateUseFactor*vehicleValueFactor;
-		
+
+		double vehicleInsuranceQuotation = 100 * typeFactor * engineFactor * vehicleAdditionalDriverFactor
+				* commercialUseFactor * outsideStateUseFactor * vehicleValueFactor;
+
 		return vehicleInsuranceQuotation;
 	}
-	
+
 }

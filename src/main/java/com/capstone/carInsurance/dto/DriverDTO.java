@@ -14,13 +14,17 @@ public class DriverDTO {
 	private String firstName;
 	private String lastName;
 	private String contactNo;
+	private String email;
+	
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
 	private String postCode;
+	
+	private String vehicleType;
 	private String engineSize;
 	private Long currentValue;
-	private String additionalDriver;
-	private boolean commercialUse;
-	private boolean outsideState;
+	private int additionalDriver;
+	private String commercialUse;
+	private String outsideState;
 }

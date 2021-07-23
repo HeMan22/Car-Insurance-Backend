@@ -16,9 +16,11 @@ public class DriverServiceImpl implements DriverService {
 	private VehicleFactor vehicleFactor;
 
 	@Autowired
-	public DriverServiceImpl(DriverRepository driverRepository) {
+	public DriverServiceImpl(DriverRepository driverRepository, VehicleFactor vehicleFactor) {
 		super();
 		this.driverRepository = driverRepository;
+		this.vehicleFactor = vehicleFactor;
+		
 	}
 
 	@Override
