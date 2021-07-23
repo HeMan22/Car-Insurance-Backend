@@ -22,43 +22,66 @@ import com.capstone.carInsurance.utility.DriverDTOConvertor;
 public class DriverServiceController {
 
 	DriverService driverService;
+
 	@Autowired
 	public DriverServiceController(DriverService driverService) {
-		this.driverService=driverService;
+		this.driverService = driverService;
 	}
-	
+
 	@GetMapping("/ping")
-	public ResponseEntity<APIResponse> getConnectionTest(){
-		APIResponse connectionTest = new APIResponse("SUCCESS","CAR Insurance API is Running",null);
-		return new ResponseEntity<APIResponse>(connectionTest,HttpStatus.OK);
+	public ResponseEntity<APIResponse> getConnectionTest() {
+		APIResponse connectionTest = new APIResponse("SUCCESS", "CAR Insurance API is Running", null);
+		return new ResponseEntity<APIResponse>(connectionTest, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/save/driver")
-	public ResponseEntity<APIResponse> saveDriverInfo(@RequestBody DriverDTO driverDTO){
-		
-		//Converting DTO to Driver Entity
+	public ResponseEntity<APIResponse> saveDriverInfo(@RequestBody DriverDTO driverDTO) {
+
+		// Converting DTO to Driver Entity
 		Driver newDriverObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
-		
-		//Calling DriverServices to save the Driver Info
+
+		// Calling DriverServices to save the Driver Info
 		Driver saveDriverInfo = driverService.saveDriver(newDriverObj);
-				
-		// Setting API Response		
-		APIResponse saveDriverResponse = new APIResponse("SUCCESS", "Driver Saved",saveDriverInfo);
-		
+
+		// Calculating Quote
+		double insuranceQuote = driverService.getInsuranceQuote(saveDriverInfo);
+
+		System.out.println(insuranceQuote);
+
+		// Setting API Response
+		APIResponse saveDriverResponse = new APIResponse("SUCCESS", "Driver Saved", saveDriverInfo);
+
 		return new ResponseEntity<APIResponse>(saveDriverResponse, HttpStatus.CREATED);
 	}
-	
+
+	@GetMapping("/get/driver/quote/{id}")
+	public ResponseEntity<APIResponse> getDriverCarInsuranceQuote(@PathVariable long id)
+			throws DriverNotFoundException {
+
+		// Getting Driver Info with the ID provided
+		Driver driverInfo = driverService.getDriver(id);
+
+		// Calculating Car insurance Quote with the Driver Info retrieved
+		double carInsuranceQuote = driverService.getInsuranceQuote(driverInfo);
+
+		// Setting the API Response
+
+		APIResponse getCarInsuranceQuote = new APIResponse("Success", "Driver Car Insurance Quote Calculated",
+				carInsuranceQuote);
+
+		return new ResponseEntity<APIResponse>(getCarInsuranceQuote, HttpStatus.OK);
+	}
+
 	@GetMapping("/get/driver/{id}")
-	public ResponseEntity<APIResponse> getDriverByDriverID(@PathVariable Long id) throws DriverNotFoundException{
-		
+	public ResponseEntity<APIResponse> getDriverByDriverID(@PathVariable Long id) throws DriverNotFoundException {
+
 		//
 		Driver getDriverObj = driverService.getDriver(id);
-		
+
 		APIResponse getDriverResponse = new APIResponse("SUCCESS", "Driver Fetched", getDriverObj);
-		
+
 		return new ResponseEntity<APIResponse>(getDriverResponse, HttpStatus.FOUND);
-		
+
 	}
-	
-	
+
 }

@@ -7,4 +7,5 @@ public interface DriverService {
 public Driver saveDriver(Driver driver);
 public Driver getDriver(Long driverId) throws DriverNotFoundException;
 public void deleteDriver(Long driverId);
+public double getInsuranceQuote(Driver driver);
 }
