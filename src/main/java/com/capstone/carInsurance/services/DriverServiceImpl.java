@@ -23,7 +23,7 @@ public class DriverServiceImpl implements DriverService {
 		super();
 		this.driverRepository = driverRepository;
 		this.vehicleFactor = vehicleFactor;
-		
+
 	}
 
 	@Override
@@ -32,23 +32,33 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
-	public Driver getDriver(Long driverId) throws DriverNotFoundException{
+	public Driver getDriver(Long driverId) throws DriverNotFoundException {
 
 		Optional<Driver> driverInfo = driverRepository.findById(driverId);
-		
-		if(!driverInfo.isPresent()) {
-			throw new DriverNotFoundException("No Driver with Driver ID: "+ driverId+" can be found in the system.");
+
+		if (!driverInfo.isPresent()) {
+			throw new DriverNotFoundException("No Driver with Driver ID: " + driverId + " can be found in the system.");
 		}
-		
+
 		return driverInfo.get();
 	}
 
 	@Override
-	public void deleteDriver(Long driverId) {
-		// TODO Auto-generated method stub
+	public String deleteDriver(Long driverId) throws DriverNotFoundException {
+		
+		Optional<Driver> driverInfo = driverRepository.findById(driverId);
+		
+		if(driverInfo.isEmpty())
+		{
+			throw new DriverNotFoundException("No Driver with Driver ID: "+ driverId+" can be found in the system.");
+		}
+			
+		driverRepository.deleteById(driverId);
+		
+		return "Driver Info Deleted from the System";
 
 	}
-	
+
 	@Override
 	public double getInsuranceQuote(Driver driver) {
 		vehicleFactor.getVehicleTypeFactor(driver.getVehicleType());
@@ -57,10 +67,9 @@ public class DriverServiceImpl implements DriverService {
 		vehicleFactor.getVehicleCommericalUseFactor(driver.getCommercialUse());
 		vehicleFactor.getVehicleOutsideStateUseFactor(driver.getOutsideState());
 		vehicleFactor.getVehicleValueFactor(driver.getCurrentValue());
-		
-		
+
 		return vehicleFactor.getVehicleInsuranceQuotation();
-		
+
 	}
 
 }

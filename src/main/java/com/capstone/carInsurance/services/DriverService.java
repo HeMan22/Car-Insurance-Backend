@@ -6,6 +6,6 @@ import com.capstone.carInsurance.model.Driver;
 public interface DriverService {
 public Driver saveDriver(Driver driver);
 public Driver getDriver(Long driverId) throws DriverNotFoundException;
-public void deleteDriver(Long driverId);
+public String deleteDriver(Long driverId) throws DriverNotFoundException;
 public double getInsuranceQuote(Driver driver);
 }
