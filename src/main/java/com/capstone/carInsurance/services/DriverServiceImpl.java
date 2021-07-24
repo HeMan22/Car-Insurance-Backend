@@ -1,6 +1,8 @@
 package com.capstone.carInsurance.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,17 +46,25 @@ public class DriverServiceImpl implements DriverService {
 	}
 
 	@Override
+	public List<Driver> getAllDriverList() {
+
+		List<Driver> driverInfo = driverRepository.findAll();
+
+		return driverInfo.stream().collect(Collectors.toList());
+
+	}
+
+	@Override
 	public String deleteDriver(Long driverId) throws DriverNotFoundException {
-		
+
 		Optional<Driver> driverInfo = driverRepository.findById(driverId);
-		
-		if(driverInfo.isEmpty())
-		{
-			throw new DriverNotFoundException("No Driver with Driver ID: "+ driverId+" can be found in the system.");
+
+		if (driverInfo.isEmpty()) {
+			throw new DriverNotFoundException("No Driver with Driver ID: " + driverId + " can be found in the system.");
 		}
-			
+
 		driverRepository.deleteById(driverId);
-		
+
 		return "Driver Info Deleted from the System";
 
 	}
@@ -70,6 +80,27 @@ public class DriverServiceImpl implements DriverService {
 
 		return vehicleFactor.getVehicleInsuranceQuotation();
 
+	}
+
+	@Override
+	public Driver updateDriverDetails(Driver driver) throws DriverNotFoundException {
+		Driver driverObj = getDriver(driver.getDriverID());
+		
+		if(driverObj !=null) {
+			//Save the new updates
+			driverObj.setFirstName(driver.getFirstName());
+			driverObj.setLastName(driver.getLastName());
+			driverObj.setEmail(driver.getEmail());
+			driverObj.setContactNo(driver.getContactNo());
+			driverObj.setAddressLine1(driver.getAddressLine1());
+			driverObj.setAddressLine2(driver.getAddressLine2());
+			driverObj.setCity(driver.getCity());
+			driverObj.setPostCode(driver.getPostCode());
+			
+			driverRepository.save(driverObj);
+		}
+		
+		return driverObj;
 	}
 
 }

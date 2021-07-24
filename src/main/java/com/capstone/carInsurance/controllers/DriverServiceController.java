@@ -1,5 +1,7 @@
 package com.capstone.carInsurance.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +9,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.carInsurance.dto.DriverDTO;
@@ -86,6 +90,32 @@ public class DriverServiceController {
 
 	}
 
+	@GetMapping("/get/driver/all")
+	public ResponseEntity<APIResponse> getAllDriverList() {
+		List<Driver> getAllDriver = driverService.getAllDriverList();
+
+		APIResponse getAllDriverResponse = new APIResponse("SUCCESS", "Driver List Fetched", getAllDriver);
+
+		return new ResponseEntity<APIResponse>(getAllDriverResponse, HttpStatus.OK);
+	}
+
+	@PostMapping("/update/driver")
+	@ResponseBody
+	public ResponseEntity<APIResponse> updateDriverDetails(@RequestBody DriverDTO driverDTO)throws DriverNotFoundException{
+		
+		//Converting from DTO to Driver entity
+		Driver driverinfoObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
+		
+		// Calling DriverServices to update the Driver Details
+		Driver updatedDriverInfo = driverService.updateDriverDetails(driverinfoObj);
+		
+		//Setting up API Response Body
+		APIResponse updatedDriverAPIResponse = new APIResponse("Success", "Driver Details updated Successfully", updatedDriverInfo);
+		
+		return new ResponseEntity<APIResponse>(updatedDriverAPIResponse,HttpStatus.OK);
+	}
+	
+	
 	@DeleteMapping("/delete/driver/{id}")
 	public ResponseEntity<APIResponse> deleteDriverByDriverID(@PathVariable long id) throws DriverNotFoundException {
 
