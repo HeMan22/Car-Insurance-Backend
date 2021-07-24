@@ -27,4 +27,5 @@ public class DriverDTO {
 	private int additionalDriver;
 	private String commercialUse;
 	private String outsideState;
+	private String registeredDate;
 }

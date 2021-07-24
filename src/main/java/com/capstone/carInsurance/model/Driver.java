@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
+@Table(name = "DRIVER_DETAILS")
 public class Driver {
 	
 	@Id
@@ -40,5 +40,7 @@ public class Driver {
 	private int additionalDriver;
 	private String commercialUse;
 	private String outsideState;
+	private String registeredDate;
+	
 
 }

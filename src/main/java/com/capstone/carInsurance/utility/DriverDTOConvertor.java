@@ -27,6 +27,7 @@ public class DriverDTOConvertor {
 		driverObj.setCurrentValue(driverDTO.getCurrentValue());
 		driverObj.setOutsideState(driverDTO.getOutsideState());
 		driverObj.setCommercialUse(driverDTO.getCommercialUse());
+		driverObj.setRegisteredDate(driverDTO.getRegisteredDate());
 		
 		return driverObj;
 	}
