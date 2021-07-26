@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,10 @@ import com.capstone.carInsurance.services.DriverService;
 import com.capstone.carInsurance.utility.APIResponse;
 import com.capstone.carInsurance.utility.DriverDTOConvertor;
 
+import lombok.extern.log4j.Log4j2;
+
+@CrossOrigin
+@Log4j2
 @RestController
 @RequestMapping("/api/v1/carInsurance")
 public class DriverServiceController {
@@ -72,7 +77,7 @@ public class DriverServiceController {
 
 		// Setting the API Response
 
-		APIResponse getCarInsuranceQuote = new APIResponse("Success", "Driver Car Insurance Quote Calculated",
+		APIResponse getCarInsuranceQuote = new APIResponse("SUCCESS", "Driver Car Insurance Quote Calculated",
 				carInsuranceQuote);
 
 		return new ResponseEntity<APIResponse>(getCarInsuranceQuote, HttpStatus.OK);
@@ -86,7 +91,7 @@ public class DriverServiceController {
 
 		APIResponse getDriverResponse = new APIResponse("SUCCESS", "Driver Fetched", getDriverObj);
 
-		return new ResponseEntity<APIResponse>(getDriverResponse, HttpStatus.FOUND);
+		return new ResponseEntity<APIResponse>(getDriverResponse, HttpStatus.OK);
 
 	}
 
@@ -101,21 +106,24 @@ public class DriverServiceController {
 
 	@PostMapping("/update/driver")
 	@ResponseBody
-	public ResponseEntity<APIResponse> updateDriverDetails(@RequestBody DriverDTO driverDTO)throws DriverNotFoundException{
-		
-		//Converting from DTO to Driver entity
+	public ResponseEntity<APIResponse> updateDriverDetails(@RequestBody DriverDTO driverDTO)
+			throws DriverNotFoundException {
+
+		log.info("First Log " + driverDTO.getDriverID());
+
+		// Converting from DTO to Driver entity
 		Driver driverinfoObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
-		
+
 		// Calling DriverServices to update the Driver Details
 		Driver updatedDriverInfo = driverService.updateDriverDetails(driverinfoObj);
-		
-		//Setting up API Response Body
-		APIResponse updatedDriverAPIResponse = new APIResponse("Success", "Driver Details updated Successfully", updatedDriverInfo);
-		
-		return new ResponseEntity<APIResponse>(updatedDriverAPIResponse,HttpStatus.OK);
+
+		// Setting up API Response Body
+		APIResponse updatedDriverAPIResponse = new APIResponse("SUCCESS", "Driver Details updated Successfully",
+				updatedDriverInfo);
+
+		return new ResponseEntity<APIResponse>(updatedDriverAPIResponse, HttpStatus.OK);
 	}
-	
-	
+
 	@DeleteMapping("/delete/driver/{id}")
 	public ResponseEntity<APIResponse> deleteDriverByDriverID(@PathVariable long id) throws DriverNotFoundException {
 
@@ -125,7 +133,7 @@ public class DriverServiceController {
 
 		String deleteResponse = driverService.deleteDriver(id);
 
-		APIResponse deleteDriverResponse = new APIResponse("Success", deleteResponse, driverObj);
+		APIResponse deleteDriverResponse = new APIResponse("SUCCESS", deleteResponse, driverObj);
 
 		return new ResponseEntity<APIResponse>(deleteDriverResponse, HttpStatus.OK);
 

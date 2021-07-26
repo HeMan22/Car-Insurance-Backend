@@ -13,6 +13,10 @@ import com.capstone.carInsurance.model.Driver;
 import com.capstone.carInsurance.repository.DriverRepository;
 import com.capstone.carInsurance.utility.VehicleFactor;
 
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 @Transactional
 public class DriverServiceImpl implements DriverService {
@@ -85,7 +89,7 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public Driver updateDriverDetails(Driver driver) throws DriverNotFoundException {
 		Driver driverObj = getDriver(driver.getDriverID());
-		
+		log.info(driverObj);
 		if(driverObj !=null) {
 			//Save the new updates
 			driverObj.setFirstName(driver.getFirstName());

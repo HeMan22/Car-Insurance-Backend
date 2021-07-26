@@ -9,7 +9,7 @@ public class DriverDTOConvertor {
 		
 		Driver driverObj = new Driver();
 		
-		
+		driverObj.setDriverID(driverDTO.getDriverID());
 		driverObj.setPrefix(driverDTO.getPrefix());
 		driverObj.setFirstName(driverDTO.getFirstName());
 		driverObj.setLastName(driverDTO.getLastName());
