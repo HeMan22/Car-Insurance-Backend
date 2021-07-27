@@ -22,8 +22,8 @@ public class VehicleFactor {
 		vehicleTypeFactor.put("Cabriolet", 1.3);
 		vehicleTypeFactor.put("Coupe", 1.4);
 		vehicleTypeFactor.put("Estate", 1.5);
-		vehicleTypeFactor.put("Hatchback", 1.6);
-		vehicleTypeFactor.put("Other", 1.7);
+		vehicleTypeFactor.put("HatchBack", 1.6);
+		vehicleTypeFactor.put("Others", 1.7);
 
 		typeFactor = vehicleTypeFactor.get(vehicleType);
 		System.out.println("Factor Class " + vehicleType + " : " + vehicleTypeFactor.get(vehicleType));
@@ -40,7 +40,7 @@ public class VehicleFactor {
 		engineSizeFactor.put("2000", 2.0);
 		engineSizeFactor.put("2500", 2.5);
 		engineSizeFactor.put("3000", 3.0);
-		engineSizeFactor.put("Other", 3.5);
+		engineSizeFactor.put("Others", 3.5);
 
 		engineFactor = engineSizeFactor.get(engineSize);
 		return engineFactor;
