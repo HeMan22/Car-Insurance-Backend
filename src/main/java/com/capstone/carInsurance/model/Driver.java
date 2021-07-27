@@ -42,5 +42,7 @@ public class Driver {
 	private String outsideState;
 	private String registeredDate;
 	
+	private double quotation;
+	
 
 }

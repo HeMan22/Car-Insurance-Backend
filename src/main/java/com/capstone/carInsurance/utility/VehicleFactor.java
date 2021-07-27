@@ -83,6 +83,10 @@ public class VehicleFactor {
 		double vehicleInsuranceQuotation = 100 * typeFactor * engineFactor * vehicleAdditionalDriverFactor
 				* commercialUseFactor * outsideStateUseFactor * vehicleValueFactor;
 
+//		double roundOff = Double.parseDouble(String.format("%.2f", vehicleInsuranceQuotation));
+//		
+//		System.out.println("RoundOff "+roundOff);
+////		System.out.println(String.format("%.2f", vehicleInsuranceQuotation));
 		return vehicleInsuranceQuotation;
 	}
 

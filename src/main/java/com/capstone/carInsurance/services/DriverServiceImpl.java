@@ -34,6 +34,9 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public Driver saveDriver(Driver driver) {
+		
+		driver.setQuotation(getInsuranceQuote(driver));
+		
 		return driverRepository.save(driver);
 	}
 
