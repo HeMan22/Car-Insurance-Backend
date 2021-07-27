@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 @Component
 public class VehicleFactor {
 

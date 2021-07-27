@@ -30,8 +30,8 @@ public class CarInsuranceFactorTest {
 
 	@BeforeEach
 	void setUp() {
-		vehicleType = "Hatchback";
-		engineSize = "Other";
+		vehicleType = "HatchBack";
+		engineSize = "Others";
 		valueFactor = (long) 5000;
 		additionalDrivers = 5;
 		commericalUse = "No";
@@ -56,11 +56,11 @@ public class CarInsuranceFactorTest {
 			factor = 1.5;
 			break;
 
-		case "Hatchback":
+		case "HatchBack":
 			factor = 1.6;
 			break;
 
-		case "Other":
+		case "Others":
 			factor = 1.7;
 			break;
 		}
@@ -89,7 +89,7 @@ public class CarInsuranceFactorTest {
 		case "3000":
 			factor = 3.0;
 			break;
-		case "Other":
+		case "Others":
 			factor = 3.5;
 			break;
 		default:
