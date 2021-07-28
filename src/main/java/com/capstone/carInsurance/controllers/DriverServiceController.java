@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +44,7 @@ public class DriverServiceController {
 		return new ResponseEntity<APIResponse>(connectionTest, HttpStatus.OK);
 	}
 
-	@PostMapping("/save/driver")
+	@PostMapping("/driver")
 	public ResponseEntity<APIResponse> saveDriverInfo(@RequestBody DriverDTO driverDTO) {
 
 		// Converting DTO to Driver Entity
@@ -63,7 +64,7 @@ public class DriverServiceController {
 		return new ResponseEntity<APIResponse>(saveDriverResponse, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get/driver/quote/{id}")
+	@GetMapping("/driver/quote/{id}")
 	public ResponseEntity<APIResponse> getDriverCarInsuranceQuote(@PathVariable long id)
 			throws DriverNotFoundException {
 
@@ -82,7 +83,7 @@ public class DriverServiceController {
 		return new ResponseEntity<APIResponse>(getCarInsuranceQuote, HttpStatus.OK);
 	}
 
-	@GetMapping("/get/driver/{id}")
+	@GetMapping("/driver/{id}")
 	public ResponseEntity<APIResponse> getDriverByDriverID(@PathVariable Long id) throws DriverNotFoundException {
 
 		// Getting Driver Info with the ID provided
@@ -94,7 +95,7 @@ public class DriverServiceController {
 
 	}
 
-	@GetMapping("/get/driver/all")
+	@GetMapping("/driver/all")
 	public ResponseEntity<APIResponse> getAllDriverList() {
 		List<Driver> getAllDriver = driverService.getAllDriverList();
 
@@ -103,7 +104,7 @@ public class DriverServiceController {
 		return new ResponseEntity<APIResponse>(getAllDriverResponse, HttpStatus.OK);
 	}
 
-	@PostMapping("/update/driver")
+	@PutMapping("/driver")
 	@ResponseBody
 	public ResponseEntity<APIResponse> updateDriverDetails(@RequestBody DriverDTO driverDTO)
 			throws DriverNotFoundException {
@@ -123,7 +124,7 @@ public class DriverServiceController {
 		return new ResponseEntity<APIResponse>(updatedDriverAPIResponse, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/driver/{id}")
+	@DeleteMapping("/driver/{id}")
 	public ResponseEntity<APIResponse> deleteDriverByDriverID(@PathVariable long id) throws DriverNotFoundException {
 
 		// First Fetching the Driver to check whether any Driver with given ID exists or

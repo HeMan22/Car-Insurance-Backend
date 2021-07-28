@@ -4,9 +4,6 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 @Component
 public class VehicleFactor {
 
@@ -28,7 +25,7 @@ public class VehicleFactor {
 		vehicleTypeFactor.put("HatchBack", 1.6);
 		vehicleTypeFactor.put("Others", 1.7);
 
-		typeFactor = vehicleTypeFactor.get(vehicleType);
+		this.typeFactor = vehicleTypeFactor.get(vehicleType);
 		System.out.println("Factor Class " + vehicleType + " : " + vehicleTypeFactor.get(vehicleType));
 		return typeFactor;
 	}
@@ -45,14 +42,14 @@ public class VehicleFactor {
 		engineSizeFactor.put("3000", 3.0);
 		engineSizeFactor.put("Others", 3.5);
 
-		engineFactor = engineSizeFactor.get(engineSize);
+		this.engineFactor = engineSizeFactor.get(engineSize);
 		return engineFactor;
 	}
 
 	// Setting Factor for Vehicle Value Case
 	public double getVehicleValueFactor(Long vehicleValue) {
 
-		vehicleValueFactor = (vehicleValue <= 5000) ? 1.0 : 1.2;
+		this.vehicleValueFactor = (vehicleValue <= 5000) ? 1.0 : 1.2;
 
 		return vehicleValueFactor;
 	}
@@ -60,7 +57,7 @@ public class VehicleFactor {
 	// Setting Factor for Additional Driver Case
 	public double getVehicleAdditionalDriverFactor(int additionalDriver) {
 
-		vehicleAdditionalDriverFactor = (additionalDriver <= 2) ? 1.1 : 1.2;
+		this.vehicleAdditionalDriverFactor = (additionalDriver <= 2) ? 1.1 : 1.2;
 
 		return vehicleAdditionalDriverFactor;
 	}
@@ -68,7 +65,7 @@ public class VehicleFactor {
 	// Setting Factor for Commercial Use Case
 	public double getVehicleCommericalUseFactor(String commercialUse) {
 
-		commercialUseFactor = (commercialUse.equals("Yes") ? 1.1 : 1.0);
+		this.commercialUseFactor = (commercialUse.equals("Yes") ? 1.1 : 1.0);
 
 		return commercialUseFactor;
 	}
@@ -76,7 +73,7 @@ public class VehicleFactor {
 	// Setting Factor for Outside State Use Case
 	public double getVehicleOutsideStateUseFactor(String outsideStateUse) {
 
-		outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
+		this.outsideStateUseFactor = (outsideStateUse.equals("Yes") ? 1.1 : 1.0);
 
 		return outsideStateUseFactor;
 	}
@@ -86,10 +83,6 @@ public class VehicleFactor {
 		double vehicleInsuranceQuotation = 100 * typeFactor * engineFactor * vehicleAdditionalDriverFactor
 				* commercialUseFactor * outsideStateUseFactor * vehicleValueFactor;
 
-//		double roundOff = Double.parseDouble(String.format("%.2f", vehicleInsuranceQuotation));
-//		
-//		System.out.println("RoundOff "+roundOff);
-////		System.out.println(String.format("%.2f", vehicleInsuranceQuotation));
 		return vehicleInsuranceQuotation;
 	}
 

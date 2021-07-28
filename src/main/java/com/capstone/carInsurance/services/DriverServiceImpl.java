@@ -13,7 +13,6 @@ import com.capstone.carInsurance.model.Driver;
 import com.capstone.carInsurance.repository.DriverRepository;
 import com.capstone.carInsurance.utility.VehicleFactor;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -52,6 +51,7 @@ public class DriverServiceImpl implements DriverService {
 		return driverInfo.get();
 	}
 
+	// Fetching All the Drivers 
 	@Override
 	public List<Driver> getAllDriverList() {
 

@@ -2,26 +2,18 @@ package com.capstone.carInsurance.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
 public class CarInsuranceQuoteTestAmount {
-	
-	@InjectMocks
-	VehicleFactor vehicleFactor;
-	
-	private Map<String,Object> vehicleFactor1 = new HashMap<>();
-	private Map<String,Object> vehicleFactor2 = new HashMap<>();
-	
-	
+
+	VehicleFactor vehicleFactor = new VehicleFactor();;
+
+//	private Map<String,Object> vehicleFactor1 = new HashMap<>();
+//	private Map<String,Object> vehicleFactor2 = new HashMap<>();
+
 //	@BeforeEach
 //	void setUp() {
 //		vehicleFactor1.put("vehicleType", "HatchBack");
@@ -38,25 +30,31 @@ public class CarInsuranceQuoteTestAmount {
 //		vehicleFactor2.put("commericalUse", "No");
 //		vehicleFactor2.put("outsideStateUse", "No");
 //	}
-	
+
 	@Test
 	public void givenVehicleProperty1ReturnCorrectAmountTest() {
-		//vehicleFactor = new VehicleFactor();
-		double vehicleType= vehicleFactor.getVehicleTypeFactor("HatchBack");
+
+		double vehicleType = vehicleFactor.getVehicleTypeFactor("HatchBack");
 		double engineSize = vehicleFactor.getVehicleEngineSizeFactor("1600");
-		double valueFactor = vehicleFactor.getVehicleValueFactor((long)5000);
+		double valueFactor = vehicleFactor.getVehicleValueFactor((long) 5000);
 		double additionalDrivers = vehicleFactor.getVehicleAdditionalDriverFactor(3);
 		double commercialUse = vehicleFactor.getVehicleOutsideStateUseFactor("Yes");
 		double outsideStateUse = vehicleFactor.getVehicleOutsideStateUseFactor("Yes");
+
+		System.out.println(commercialUse);
+		System.out.println("Quote --> " + vehicleType + " " + engineSize + " -->" + valueFactor + " "
+				+ additionalDrivers + " " + outsideStateUse + " ");
 		
-//		System.out.println(commercialUse);
-//		System.out.println("Quote --> "+vehicleType+" "+ engineSize+" -->" +vehicleFactor.getVehicleInsuranceQuotation());
-//		System.out.println(vehicleFactor.commercialUseFactor);
+		
+//		System.out.println(vehicleFactor.commercialUseFactor);	
 //		double quote = vehicleFactor.getVehicleInsuranceQuotation();
-		double quote = 100 * vehicleType* engineSize* valueFactor*additionalDrivers*commercialUse*outsideStateUse;
-		double precisedQuote =Double.parseDouble(String.format("%.3f",quote));
+//		System.out.println("Quote --> "+quote);
+		
+		
+		double quote = 100 * vehicleType * engineSize * valueFactor * additionalDrivers * commercialUse
+				* outsideStateUse;
+		double precisedQuote = Double.parseDouble(String.format("%.3f", quote));
 		assertEquals(precisedQuote, 371.712);
 	}
-	
 
 }
