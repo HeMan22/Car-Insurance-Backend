@@ -20,7 +20,9 @@ public class DriverDTO {
 	private String lastName;
 	@NotNull
 	private String contactNo;
+
 	@NotNull
+	@NotEmpty
 	private String email;
 
 	private String addressLine1;

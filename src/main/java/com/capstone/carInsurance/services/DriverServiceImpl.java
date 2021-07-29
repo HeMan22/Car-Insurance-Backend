@@ -33,9 +33,9 @@ public class DriverServiceImpl implements DriverService {
 
 	@Override
 	public Driver saveDriver(Driver driver) {
-		
+
 		driver.setQuotation(getInsuranceQuote(driver));
-		
+
 		return driverRepository.save(driver);
 	}
 
@@ -51,7 +51,7 @@ public class DriverServiceImpl implements DriverService {
 		return driverInfo.get();
 	}
 
-	// Fetching All the Drivers 
+	// Fetching All the Drivers
 	@Override
 	public List<Driver> getAllDriverList() {
 
@@ -61,6 +61,7 @@ public class DriverServiceImpl implements DriverService {
 
 	}
 
+	// Deleting the Driver
 	@Override
 	public String deleteDriver(Long driverId) throws DriverNotFoundException {
 
@@ -76,6 +77,7 @@ public class DriverServiceImpl implements DriverService {
 
 	}
 
+	// Calculating Car Insurance Quote based on different factors
 	@Override
 	public double getInsuranceQuote(Driver driver) {
 		vehicleFactor.getVehicleTypeFactor(driver.getVehicleType());
@@ -89,12 +91,14 @@ public class DriverServiceImpl implements DriverService {
 
 	}
 
+	// Updating the Driver Info
 	@Override
 	public Driver updateDriverDetails(Driver driver) throws DriverNotFoundException {
 		Driver driverObj = getDriver(driver.getDriverID());
-		log.info(driverObj);
-		if(driverObj !=null) {
-			//Save the new updates
+
+		// log.info(driverObj);
+		if (driverObj != null) {
+			// Save the new updates
 			driverObj.setFirstName(driver.getFirstName());
 			driverObj.setLastName(driver.getLastName());
 			driverObj.setEmail(driver.getEmail());
@@ -103,10 +107,10 @@ public class DriverServiceImpl implements DriverService {
 			driverObj.setAddressLine2(driver.getAddressLine2());
 			driverObj.setCity(driver.getCity());
 			driverObj.setPostCode(driver.getPostCode());
-			
+
 			driverRepository.save(driverObj);
 		}
-		
+
 		return driverObj;
 	}
 

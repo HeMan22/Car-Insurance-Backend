@@ -26,7 +26,7 @@ public class VehicleFactor {
 		vehicleTypeFactor.put("Others", 1.7);
 
 		this.typeFactor = vehicleTypeFactor.get(vehicleType);
-		System.out.println("Factor Class " + vehicleType + " : " + vehicleTypeFactor.get(vehicleType));
+//		log.info("Factor Class " + vehicleType + " : " + vehicleTypeFactor.get(vehicleType)); //Add @Log4j2
 		return typeFactor;
 	}
 

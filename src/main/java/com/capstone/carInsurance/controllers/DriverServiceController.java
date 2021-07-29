@@ -2,9 +2,11 @@ package com.capstone.carInsurance.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RestController
 @RequestMapping("/api/v1/carInsurance")
+@Validated
 public class DriverServiceController {
 
 	DriverService driverService;
@@ -56,7 +59,7 @@ public class DriverServiceController {
 		// Calculating Quote
 		double insuranceQuote = driverService.getInsuranceQuote(saveDriverInfo);
 
-		System.out.println(insuranceQuote);
+		log.info("After Saving the User Calculated Insurance Quote : " + insuranceQuote);
 
 		// Setting API Response
 		APIResponse saveDriverResponse = new APIResponse("SUCCESS", "Driver Saved", saveDriverInfo);
@@ -75,6 +78,7 @@ public class DriverServiceController {
 		// Calculating Car insurance Quote with the Driver Info retrieved
 		double carInsuranceQuote = driverService.getInsuranceQuote(driverInfo);
 
+		log.info("Driver with ID : " + id + " Insurance Quote Calculated : " + carInsuranceQuote);
 		// Setting the API Response
 
 		APIResponse getCarInsuranceQuote = new APIResponse("SUCCESS", "Driver Car Insurance Quote Calculated",
@@ -132,6 +136,8 @@ public class DriverServiceController {
 		Driver driverObj = driverService.getDriver(id);
 
 		String deleteResponse = driverService.deleteDriver(id);
+
+		log.info(deleteResponse + "ID: " + id);
 
 		APIResponse deleteDriverResponse = new APIResponse("SUCCESS", deleteResponse, driverObj);
 
