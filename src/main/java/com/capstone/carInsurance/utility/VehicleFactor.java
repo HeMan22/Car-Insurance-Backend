@@ -47,7 +47,7 @@ public class VehicleFactor {
 	}
 
 	// Setting Factor for Vehicle Value Case
-	public double getVehicleValueFactor(Long vehicleValue) {
+	public double getVehicleValueFactor(long vehicleValue) {
 
 		this.vehicleValueFactor = (vehicleValue <= 5000) ? 1.0 : 1.2;
 

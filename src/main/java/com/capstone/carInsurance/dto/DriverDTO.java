@@ -1,7 +1,13 @@
 package com.capstone.carInsurance.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Range;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +28,7 @@ public class DriverDTO {
 	private String contactNo;
 
 	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String email;
 
 	private String addressLine1;
@@ -37,16 +43,16 @@ public class DriverDTO {
 	@NotEmpty
 	private String engineSize;
 	@NotNull
-	@NotEmpty
-	private Long currentValue;
+	@Range(min=1, max=50000)
+	private long currentValue;
 	@NotNull
-	@NotEmpty
+	@Min(1)@Max(4)
 	private int additionalDriver;
 	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String commercialUse;
 	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String outsideState;
 
 	private String registeredDate;

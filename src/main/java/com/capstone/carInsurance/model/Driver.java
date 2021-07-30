@@ -36,7 +36,7 @@ public class Driver {
 	
 	private String vehicleType;
 	private String engineSize;
-	private Long currentValue;
+	private long currentValue;
 	private int additionalDriver;
 	private String commercialUse;
 	private String outsideState;

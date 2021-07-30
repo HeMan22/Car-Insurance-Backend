@@ -2,11 +2,11 @@ package com.capstone.carInsurance.controllers;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Logger;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RestController
 @RequestMapping("/api/v1/carInsurance")
-@Validated
 public class DriverServiceController {
 
 	DriverService driverService;
@@ -48,7 +47,7 @@ public class DriverServiceController {
 	}
 
 	@PostMapping("/driver")
-	public ResponseEntity<APIResponse> saveDriverInfo(@RequestBody DriverDTO driverDTO) {
+	public ResponseEntity<APIResponse> saveDriverInfo(@Valid @RequestBody DriverDTO driverDTO) {
 
 		// Converting DTO to Driver Entity
 		Driver newDriverObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
