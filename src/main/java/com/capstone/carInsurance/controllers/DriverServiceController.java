@@ -35,11 +35,13 @@ public class DriverServiceController {
 
 	private static final String SUCCESS = "SUCCESS";
 	
+	DriverDTOConvertor driverDTOConvertor;
 	DriverService driverService;
 
 	@Autowired
-	public DriverServiceController(DriverService driverService) {
+	public DriverServiceController(DriverService driverService, DriverDTOConvertor driverDTOConvertor) {
 		this.driverService = driverService;
+		this.driverDTOConvertor = driverDTOConvertor;
 	}
 
 	@GetMapping("/ping")
@@ -52,7 +54,7 @@ public class DriverServiceController {
 	public ResponseEntity<APIResponse> saveDriverInfo(@Valid @RequestBody DriverDTO driverDTO) {
 
 		// Converting DTO to Driver Entity
-		Driver newDriverObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
+		Driver newDriverObj = driverDTOConvertor.driverDtoToEntity(driverDTO);
 
 		// Calling DriverServices to save the Driver Info
 		Driver saveDriverInfo = driverService.saveDriver(newDriverObj);
@@ -114,17 +116,21 @@ public class DriverServiceController {
 	public ResponseEntity<APIResponse> updateDriverDetails(@RequestBody DriverDTO driverDTO)
 			throws DriverNotFoundException {
 
-		log.info("First Log " + driverDTO.getDriverID());
+		log.info("Driver's ID whose Info needs to be Updated :  " + driverDTO.getDriverID());
 
 		// Converting from DTO to Driver entity
-		Driver driverinfoObj = DriverDTOConvertor.driverDtoToEntity(driverDTO);
+		Driver driverinfoObj = driverDTOConvertor.driverDtoToEntity(driverDTO);
 
 		// Calling DriverServices to update the Driver Details
 		Driver updatedDriverInfo = driverService.updateDriverDetails(driverinfoObj);
 
+		//Converting Driver entity to DTO before sending as Response
+		
+		DriverDTO updatedDriverDTOInfo = driverDTOConvertor.entityToDriverDTO(updatedDriverInfo);
+		
 		// Setting up API Response Body
 		APIResponse updatedDriverAPIResponse = new APIResponse(SUCCESS, "Driver Details updated Successfully",
-				updatedDriverInfo);
+				updatedDriverDTOInfo);
 
 		return new ResponseEntity<>(updatedDriverAPIResponse, HttpStatus.OK);
 	}
