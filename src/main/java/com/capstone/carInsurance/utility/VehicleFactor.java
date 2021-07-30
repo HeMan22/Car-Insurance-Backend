@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Component;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Component
 public class VehicleFactor {
 
@@ -83,6 +86,7 @@ public class VehicleFactor {
 		double vehicleInsuranceQuotation = 100 * typeFactor * engineFactor * vehicleAdditionalDriverFactor
 				* commercialUseFactor * outsideStateUseFactor * vehicleValueFactor;
 
+		log.info("Quote Calculated"+ vehicleInsuranceQuotation);
 		return vehicleInsuranceQuotation;
 	}
 

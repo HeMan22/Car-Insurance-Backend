@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-public class CarInsuranceFactorTest {
+class CarInsuranceFactorTest {
 
 	String vehicleType;
 	String engineSize;
@@ -38,7 +38,7 @@ public class CarInsuranceFactorTest {
 	}
 
 	@Test
-	public void givenVehicleTypeReturnCorrectVehicleTypeFactor() {
+	void givenVehicleTypeReturnCorrectVehicleTypeFactor() {
 		double vehicleTypeFactor = vehicleFactor.getVehicleTypeFactor(vehicleType);
 
 		double factor = 0.0;
@@ -68,7 +68,7 @@ public class CarInsuranceFactorTest {
 	}
 
 	@Test
-	public void givenEngineSizeReturnCorrectEngineSizeFactor() {
+	void givenEngineSizeReturnCorrectEngineSizeFactor() {
 		double engineSizeFactor = vehicleFactor.getVehicleEngineSizeFactor(engineSize);
 		double factor;
 
@@ -102,7 +102,7 @@ public class CarInsuranceFactorTest {
 	}
 
 	@Test
-	public void givenVehicleValueReturnVehicleValueFactor() {
+	void givenVehicleValueReturnVehicleValueFactor() {
 
 		double vehicleValueFactor = vehicleFactor.getVehicleValueFactor(valueFactor);
 		double factor = (valueFactor <= 5000) ? 1.0 : 1.2;
@@ -113,7 +113,7 @@ public class CarInsuranceFactorTest {
 	}
 
 	@Test
-	public void givenAddiitonalDriversReturnAdditionalDriversFactor() {
+	void givenAddiitonalDriversReturnAdditionalDriversFactor() {
 
 		double additionalDriversFactor = vehicleFactor.getVehicleAdditionalDriverFactor(additionalDrivers);
 		double factor = (additionalDrivers <= 2) ? 1.1 : 1.2;
@@ -125,7 +125,7 @@ public class CarInsuranceFactorTest {
 	}
 
 	@Test
-	public void givenCommercialUseReturnCommercialUseFactor() {
+	void givenCommercialUseReturnCommercialUseFactor() {
 
 		double commericalUseFactor = vehicleFactor.getVehicleCommericalUseFactor(commericalUse);
 		double factor = (commericalUse.equals("Yes")) ? 1.1 : 1.0;
@@ -137,7 +137,7 @@ public class CarInsuranceFactorTest {
 	}
 	
 	@Test
-	public void givenOutsideStateUseReturnOutsideStateUseFactor() {
+	void givenOutsideStateUseReturnOutsideStateUseFactor() {
 		
 		double outsideStateUseFactor = vehicleFactor.getVehicleOutsideStateUseFactor(outsideStateUse);
 		double factor = (outsideStateUse.equals("Yes")?1.1:1.0);

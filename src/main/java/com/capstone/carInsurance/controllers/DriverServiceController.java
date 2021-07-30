@@ -33,6 +33,8 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/api/v1/carInsurance")
 public class DriverServiceController {
 
+	private static final String SUCCESS = "SUCCESS";
+	
 	DriverService driverService;
 
 	@Autowired
@@ -42,8 +44,8 @@ public class DriverServiceController {
 
 	@GetMapping("/ping")
 	public ResponseEntity<APIResponse> getConnectionTest() {
-		APIResponse connectionTest = new APIResponse("SUCCESS", "CAR Insurance API is Running", null);
-		return new ResponseEntity<APIResponse>(connectionTest, HttpStatus.OK);
+		APIResponse connectionTest = new APIResponse(SUCCESS, "CAR Insurance API is Running", null);
+		return new ResponseEntity<>(connectionTest, HttpStatus.OK);
 	}
 
 	@PostMapping("/driver")
@@ -61,9 +63,9 @@ public class DriverServiceController {
 		log.info("After Saving the User Calculated Insurance Quote : " + insuranceQuote);
 
 		// Setting API Response
-		APIResponse saveDriverResponse = new APIResponse("SUCCESS", "Driver Saved", saveDriverInfo);
+		APIResponse saveDriverResponse = new APIResponse(SUCCESS, "Driver Saved", saveDriverInfo);
 
-		return new ResponseEntity<APIResponse>(saveDriverResponse, HttpStatus.CREATED);
+		return new ResponseEntity<>(saveDriverResponse, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/driver/quote/{id}")
@@ -80,10 +82,10 @@ public class DriverServiceController {
 		log.info("Driver with ID : " + id + " Insurance Quote Calculated : " + carInsuranceQuote);
 		// Setting the API Response
 
-		APIResponse getCarInsuranceQuote = new APIResponse("SUCCESS", "Driver Car Insurance Quote Calculated",
+		APIResponse getCarInsuranceQuote = new APIResponse(SUCCESS, "Driver Car Insurance Quote Calculated",
 				carInsuranceQuote);
 
-		return new ResponseEntity<APIResponse>(getCarInsuranceQuote, HttpStatus.OK);
+		return new ResponseEntity<>(getCarInsuranceQuote, HttpStatus.OK);
 	}
 
 	@GetMapping("/driver/{id}")
@@ -92,9 +94,9 @@ public class DriverServiceController {
 		// Getting Driver Info with the ID provided
 		Driver getDriverObj = driverService.getDriver(id);
 
-		APIResponse getDriverResponse = new APIResponse("SUCCESS", "Driver Fetched", getDriverObj);
+		APIResponse getDriverResponse = new APIResponse(SUCCESS, "Driver Fetched", getDriverObj);
 
-		return new ResponseEntity<APIResponse>(getDriverResponse, HttpStatus.OK);
+		return new ResponseEntity<>(getDriverResponse, HttpStatus.OK);
 
 	}
 
@@ -102,9 +104,9 @@ public class DriverServiceController {
 	public ResponseEntity<APIResponse> getAllDriverList() {
 		List<Driver> getAllDriver = driverService.getAllDriverList();
 
-		APIResponse getAllDriverResponse = new APIResponse("SUCCESS", "Driver List Fetched", getAllDriver);
+		APIResponse getAllDriverResponse = new APIResponse(SUCCESS, "Driver List Fetched", getAllDriver);
 
-		return new ResponseEntity<APIResponse>(getAllDriverResponse, HttpStatus.OK);
+		return new ResponseEntity<>(getAllDriverResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/driver")
@@ -121,10 +123,10 @@ public class DriverServiceController {
 		Driver updatedDriverInfo = driverService.updateDriverDetails(driverinfoObj);
 
 		// Setting up API Response Body
-		APIResponse updatedDriverAPIResponse = new APIResponse("SUCCESS", "Driver Details updated Successfully",
+		APIResponse updatedDriverAPIResponse = new APIResponse(SUCCESS, "Driver Details updated Successfully",
 				updatedDriverInfo);
 
-		return new ResponseEntity<APIResponse>(updatedDriverAPIResponse, HttpStatus.OK);
+		return new ResponseEntity<>(updatedDriverAPIResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/driver/{id}")
@@ -138,9 +140,9 @@ public class DriverServiceController {
 
 		log.info(deleteResponse + "ID: " + id);
 
-		APIResponse deleteDriverResponse = new APIResponse("SUCCESS", deleteResponse, driverObj);
+		APIResponse deleteDriverResponse = new APIResponse(SUCCESS, deleteResponse, driverObj);
 
-		return new ResponseEntity<APIResponse>(deleteDriverResponse, HttpStatus.OK);
+		return new ResponseEntity<>(deleteDriverResponse, HttpStatus.OK);
 
 	}
 

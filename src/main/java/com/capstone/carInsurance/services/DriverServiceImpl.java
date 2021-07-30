@@ -96,7 +96,7 @@ public class DriverServiceImpl implements DriverService {
 	public Driver updateDriverDetails(Driver driver) throws DriverNotFoundException {
 		Driver driverObj = getDriver(driver.getDriverID());
 
-		// log.info(driverObj);
+		log.info("Before Update : "+driverObj);
 		if (driverObj != null) {
 			// Save the new updates
 			driverObj.setFirstName(driver.getFirstName());

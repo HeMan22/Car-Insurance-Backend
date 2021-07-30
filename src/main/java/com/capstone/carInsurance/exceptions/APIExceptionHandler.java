@@ -19,7 +19,7 @@ public class APIExceptionHandler {
 	public ResponseEntity<APIResponse> handleDriverNotFoundException(DriverNotFoundException exception) {
 		APIResponse errorResponse = new APIResponse("NOT FOUND", exception.getMessage(), null);
 
-		return new ResponseEntity<APIResponse>(errorResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -31,7 +31,7 @@ public class APIExceptionHandler {
 		APIResponse errorResponse = new APIResponse("INVALID ARGUMENTS", "",
 				errors.stream().collect(Collectors.joining(",", "[", "]")));
 
-		return new ResponseEntity<APIResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 
 	}
 }

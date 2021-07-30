@@ -2,12 +2,9 @@ package com.capstone.carInsurance.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 
-public class CarInsuranceQuoteTestAmount {
+class CarInsuranceQuoteTestAmount {
 
 	VehicleFactor vehicleFactor = new VehicleFactor();;
 
@@ -32,7 +29,7 @@ public class CarInsuranceQuoteTestAmount {
 //	}
 
 	@Test
-	public void givenVehicleProperty1ReturnCorrectAmountTest() {
+	void givenVehicleProperty1ReturnCorrectAmountTest() {
 
 		double vehicleType = vehicleFactor.getVehicleTypeFactor("HatchBack");
 		double engineSize = vehicleFactor.getVehicleEngineSizeFactor("1600");
@@ -54,7 +51,7 @@ public class CarInsuranceQuoteTestAmount {
 		double quote = 100 * vehicleType * engineSize * valueFactor * additionalDrivers * commercialUse
 				* outsideStateUse;
 		double precisedQuote = Double.parseDouble(String.format("%.3f", quote));
-		assertEquals(precisedQuote, 371.712);
+		assertEquals(371.712, precisedQuote);
 	}
 
 }
