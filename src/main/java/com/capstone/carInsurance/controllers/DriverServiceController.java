@@ -64,8 +64,12 @@ public class DriverServiceController {
 
 		log.info("After Saving the User Calculated Insurance Quote : " + insuranceQuote);
 
+		// Converting Driver Entity to DTO before Sending as Response
+		DriverDTO saveDriverDTOInfo = driverDTOConvertor.entityToDriverDTO(saveDriverInfo);
+		
+		
 		// Setting API Response
-		APIResponse saveDriverResponse = new APIResponse(SUCCESS, "Driver Saved", saveDriverInfo);
+		APIResponse saveDriverResponse = new APIResponse(SUCCESS, "Driver Saved", saveDriverDTOInfo);
 
 		return new ResponseEntity<>(saveDriverResponse, HttpStatus.CREATED);
 	}
