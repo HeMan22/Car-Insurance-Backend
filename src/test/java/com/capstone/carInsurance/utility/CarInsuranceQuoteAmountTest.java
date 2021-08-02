@@ -35,7 +35,7 @@ class CarInsuranceQuoteAmountTest {
 		double engineSize = vehicleFactor.getVehicleEngineSizeFactor("1600");
 		double valueFactor = vehicleFactor.getVehicleValueFactor((long) 5000);
 		double additionalDrivers = vehicleFactor.getVehicleAdditionalDriverFactor(3);
-		double commercialUse = vehicleFactor.getVehicleOutsideStateUseFactor("Yes");
+		double commercialUse = vehicleFactor.getVehicleCommericalUseFactor("Yes");
 		double outsideStateUse = vehicleFactor.getVehicleOutsideStateUseFactor("Yes");
 
 		System.out.println(commercialUse);
@@ -43,13 +43,13 @@ class CarInsuranceQuoteAmountTest {
 				+ additionalDrivers + " " + outsideStateUse + " ");
 		
 		
-//		System.out.println(vehicleFactor.commercialUseFactor);	
-//		double quote = vehicleFactor.getVehicleInsuranceQuotation();
-//		System.out.println("Quote --> "+quote);
+		System.out.println(vehicleFactor.commercialUseFactor);	
+		double quote = vehicleFactor.getVehicleInsuranceQuotation();
+		System.out.println("Quote --> "+quote);
 		
 		
-		double quote = 100 * vehicleType * engineSize * valueFactor * additionalDrivers * commercialUse
-				* outsideStateUse;
+//		double quote = 100 * vehicleType * engineSize * valueFactor * additionalDrivers * commercialUse
+//				* outsideStateUse;
 		double precisedQuote = Double.parseDouble(String.format("%.3f", quote));
 		assertEquals(371.712, precisedQuote);
 	}
