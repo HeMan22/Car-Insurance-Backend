@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.capstone.carInsurance.controllers.DriverServiceController;
+import com.capstone.carInsurance.exceptions.DriverNotFoundException;
 import com.capstone.carInsurance.model.Driver;
 import com.capstone.carInsurance.services.DriverService;
 import com.capstone.carInsurance.utility.DriverDTOConvertor;
@@ -41,7 +42,7 @@ class DriverControllerTest {
 	private static final String SAVE_ENDPOINT = "/api/v1/carInsurance/driver";
 	private static final String GET_ENDPOINT = "/api/v1/carInsurance/driver/1";
 	private static final String GETALL_ENDPOINT = "/api/v1/carInsurance/driver/all";
-	private static final String DELETE_ENDPOINT = "";
+	private static final String DELETE_ENDPOINT = "/api/v1/carInsurance/driver/1";
 
 	@Autowired
 	private ObjectMapper mapper;
@@ -123,7 +124,7 @@ class DriverControllerTest {
 	void whenDriverThenGetAllDriverListTest() throws Exception {
 
 		when(service.getAllDriverList()).thenReturn(List.of(driverOne));
-		
+
 		MvcResult mvcResult = mvc.perform(get(GETALL_ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
@@ -138,15 +139,26 @@ class DriverControllerTest {
 
 	@Test
 	void whenDriverIDThenGetDriverDetailsTest() throws Exception {
-		
+
 		when(service.getDriver(anyLong())).thenReturn(driverOne);
-		
+
 		MvcResult mvcResult = mvc.perform(get(GET_ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 		String content = mvcResult.getResponse().getContentAsString();
 		System.out.println(mvcResult.getResponse().getStatus() + " : " + content);
-		
+
 		assertEquals(true, content.contains("Driver Fetched"));
+	}
+
+	@Test
+	void whenDriverIDThenDeleteDriverDetailsTest() throws DriverNotFoundException, Exception {
+		when(service.deleteDriver(anyLong())).thenReturn("Driver Info Deleted from the System");
+
+		MvcResult mvcResult = mvc.perform(delete(DELETE_ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn();
+
+		String content = mvcResult.getResponse().getContentAsString();
+		System.out.println(mvcResult.getResponse().getStatus() + " : " + content);
+		assertEquals(true, content.contains("Driver Info Deleted"));
 	}
 
 }
