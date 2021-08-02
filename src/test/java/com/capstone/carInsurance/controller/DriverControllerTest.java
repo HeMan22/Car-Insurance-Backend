@@ -141,14 +141,12 @@ class DriverControllerTest {
 		
 		when(service.getDriver(anyLong())).thenReturn(driverOne);
 		
-		
 		MvcResult mvcResult = mvc.perform(get(GET_ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 		String content = mvcResult.getResponse().getContentAsString();
 		System.out.println(mvcResult.getResponse().getStatus() + " : " + content);
 		
 		assertEquals(true, content.contains("Driver Fetched"));
-
 	}
 
 }

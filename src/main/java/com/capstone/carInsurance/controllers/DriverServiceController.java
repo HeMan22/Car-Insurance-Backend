@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j2;
 public class DriverServiceController {
 
 	private static final String SUCCESS = "SUCCESS";
-	
+
 	DriverDTOConvertor driverDTOConvertor;
 	DriverService driverService;
 
@@ -66,8 +66,7 @@ public class DriverServiceController {
 
 		// Converting Driver Entity to DTO before Sending as Response
 		DriverDTO saveDriverDTOInfo = driverDTOConvertor.entityToDriverDTO(saveDriverInfo);
-		
-		
+
 		// Setting API Response
 		APIResponse saveDriverResponse = new APIResponse(SUCCESS, "Driver Saved", saveDriverDTOInfo);
 
@@ -128,10 +127,9 @@ public class DriverServiceController {
 		// Calling DriverServices to update the Driver Details
 		Driver updatedDriverInfo = driverService.updateDriverDetails(driverinfoObj);
 
-		//Converting Driver entity to DTO before sending as Response
-		
+		// Converting Driver entity to DTO before sending as Response
 		DriverDTO updatedDriverDTOInfo = driverDTOConvertor.entityToDriverDTO(updatedDriverInfo);
-		
+
 		// Setting up API Response Body
 		APIResponse updatedDriverAPIResponse = new APIResponse(SUCCESS, "Driver Details updated Successfully",
 				updatedDriverDTOInfo);
@@ -150,7 +148,10 @@ public class DriverServiceController {
 
 		log.info(deleteResponse + "ID: " + id);
 
-		APIResponse deleteDriverResponse = new APIResponse(SUCCESS, deleteResponse, driverObj);
+		// Converting Driver Entity to Driver DTO before sending in Response Body
+		DriverDTO driverDTOObj = driverDTOConvertor.entityToDriverDTO(driverObj);
+
+		APIResponse deleteDriverResponse = new APIResponse(SUCCESS, deleteResponse, driverDTOObj);
 
 		return new ResponseEntity<>(deleteDriverResponse, HttpStatus.OK);
 
