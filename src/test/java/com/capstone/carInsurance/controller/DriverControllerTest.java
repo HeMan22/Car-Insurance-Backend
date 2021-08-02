@@ -4,12 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.internal.matchers.Any;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -116,6 +122,8 @@ class DriverControllerTest {
 	@Test
 	void whenDriverThenGetAllDriverListTest() throws Exception {
 
+		when(service.getAllDriverList()).thenReturn(List.of(driverOne));
+		
 		MvcResult mvcResult = mvc.perform(get(GETALL_ENDPOINT).accept(MediaType.APPLICATION_JSON)).andReturn();
 
 		int status = mvcResult.getResponse().getStatus();
