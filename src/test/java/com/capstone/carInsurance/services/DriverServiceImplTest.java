@@ -1,8 +1,14 @@
 package com.capstone.carInsurance.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.Mockito.doCallRealMethod;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +16,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.internal.matchers.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -120,14 +127,38 @@ class DriverServiceImplTest {
 		List<Driver> driverList = new ArrayList<>();
 		driverList.add(driverTwo);
 		driverList.add(driverOne);
-		
+
 		System.out.println(driverList);
 		doReturn(driverList).when(repository).findAll();
 
 		List<Driver> driver = service.getAllDriverList();
-		System.out.println(" --> "+driver);
+		System.out.println(" --> " + driver);
 		assertIterableEquals(driverList, driver);
-		
+
+	}
+
+	@Test
+	void testDeleteDriver() throws DriverNotFoundException {
+		String delete = "Driver Info Deleted from the System";
+
+		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
+				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
+		repository.save(driverOne);
+
+		// set up mocked result on Delete
+		doNothing().when(repository).deleteById(anyLong());
+
+		// set up mocked result for findById() as service.DeleteDriver() calls
+		// findById()
+		when(repository.findById(anyLong())).thenReturn(Optional.of(driverOne));
+
+		// call the method we wish to test
+		String result = service.deleteDriver(anyLong());
+
+		assertEquals(delete, result);
+
+		// verify the method was called
+		verify(repository).deleteById(anyLong());
 	}
 
 }
