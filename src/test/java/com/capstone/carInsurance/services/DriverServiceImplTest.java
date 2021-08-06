@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -117,6 +118,15 @@ class DriverServiceImplTest {
 		org.junit.jupiter.api.Assertions.assertSame(driverOne, driver);
 	}
 
+	
+	//	@Test
+//	void testGetDriverIDNotPresent() throws DriverNotFoundException {
+//		doThrow(DriverNotFoundException.class).when(repository).findById(anyLong());
+//		Driver driver = service.getDriver(anyLong());
+//		System.out.println("Error -> " + driver);
+//	}
+
+	
 	@Test
 	void testGetAllDriver() {
 		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
@@ -159,6 +169,15 @@ class DriverServiceImplTest {
 
 		// verify the method was called
 		verify(repository).deleteById(anyLong());
+	}
+	
+	void testUpdateDriver() {
+		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
+				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
+		driverOne.setFirstName("Goku");
+		when(factor.getVehicleAdditionalDriverFactor(2)).
+		
+		service.getInsuranceQuote(driverOne);
 	}
 
 }
