@@ -10,6 +10,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyDouble;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,15 +119,18 @@ class DriverServiceImplTest {
 		org.junit.jupiter.api.Assertions.assertSame(driverOne, driver);
 	}
 
-	
-	//	@Test
+//	@Test
 //	void testGetDriverIDNotPresent() throws DriverNotFoundException {
-//		doThrow(DriverNotFoundException.class).when(repository).findById(anyLong());
+//		//doThrow(new DriverNotFoundException("No Driver with Driver ID: " + anyLong() + " can be found in the system.")).when(repository).findById(anyLong());
+//		
+//		when(repository.findById(anyLong())).thenThrow(new DriverNotFoundException("No Driver with Driver ID: " + 1 + " can be found in the system."));
+//		
 //		Driver driver = service.getDriver(anyLong());
+//		
+//
 //		System.out.println("Error -> " + driver);
 //	}
 
-	
 	@Test
 	void testGetAllDriver() {
 		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
@@ -170,14 +174,36 @@ class DriverServiceImplTest {
 		// verify the method was called
 		verify(repository).deleteById(anyLong());
 	}
-	
-	void testUpdateDriver() {
+
+	@Test
+	void testGetQuotation() {
 		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
 				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
-		driverOne.setFirstName("Goku");
-		when(factor.getVehicleAdditionalDriverFactor(2)).
+
+		when(factor.getVehicleInsuranceQuotation()).thenReturn((double) 324.21);
+//		when(factor.getVehicleTypeFactor("Cabriolet")).thenReturn(anyDouble());
+//		when(factor.getVehicleEngineSizeFactor("1600")).thenReturn(anyDouble());
+//		when(factor.getVehicleAdditionalDriverFactor(2)).thenReturn(anyDouble());
+//		when(factor.getVehicleCommericalUseFactor("Yes")).thenReturn(anyDouble());
+//		when(factor.getVehicleOutsideStateUseFactor("Yes")).thenReturn(anyDouble());
+//		when(factor.getVehicleValueFactor((long)5000)).thenReturn(anyDouble());
+
+		double quote = service.getInsuranceQuote(driverOne);
+		System.out.println("Vehicle Quote -> " + quote);
+		assertEquals(driverOne.getQuotation(), quote);
+	}
+	
+	@Test
+	void testSaveDriver() {
+		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
+				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
 		
-		service.getInsuranceQuote(driverOne);
+		when(repository.save(driverOne)).thenReturn(driverOne);
+		
+		Driver driver = service.saveDriver(driverOne);
+		
+		assertSame(driverOne, driver);
+		
 	}
 
 }
