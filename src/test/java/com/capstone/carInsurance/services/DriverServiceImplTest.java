@@ -192,18 +192,30 @@ class DriverServiceImplTest {
 		System.out.println("Vehicle Quote -> " + quote);
 		assertEquals(driverOne.getQuotation(), quote);
 	}
-	
+
 	@Test
 	void testSaveDriver() {
 		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
 				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
-		
+
 		when(repository.save(driverOne)).thenReturn(driverOne);
-		
+
 		Driver driver = service.saveDriver(driverOne);
-		
+
 		assertSame(driverOne, driver);
-		
+
+	}
+	
+	@Test
+	void testUpdateDriver() throws DriverNotFoundException {
+		Driver driverOne = new Driver((long) 1, "Mr.", "Himanshu", "Tripathi", "9458706580", EMAILONE, "PMC",
+				"NishatGanj", "Lucknow", "2260060", "Cabriolet", "1600", 25000, 2, "Yes", "Yes", "7/31/2021", 324.21);
+//		driverOne.setFirstName("GOKU");	
+		when(repository.findById(anyLong())).thenReturn(Optional.of(driverOne));
+		when(repository.save(driverOne)).thenReturn(driverOne);
+		Driver driver =service.updateDriverDetails(driverOne);
+		System.out.println("Update Driver : " + driver);
+		assertSame(driverOne,driver);
 	}
 
 }
